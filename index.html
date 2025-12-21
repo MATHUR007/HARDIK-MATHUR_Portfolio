@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hardik Mathur | AI Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #050713;
+      --panel: #0b1020;
+      --accent: #4cc9f0;
+      --accent-soft: #7209b7;
+      --text: #f5f7ff;
+      --muted: #9aa0c2;
+      --card: #11162a;
+      --success: #4caf50;
+      --warning: #ffc107;
+      --danger: #ff5252;
+      --font-main: "Consolas", "Fira Code", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at top, #141b3f 0, #050713 55%);
+      color: var(--text);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(5, 7, 19, 0.95);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .shell-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: linear-gradient(90deg, #11162a, #141b3f);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .shell-dots span {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #28c840; }
+
+    .shell-title {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .shell-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.3fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .shell-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .status-line {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(76, 201, 240, 0.08);
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      border: 1px solid rgba(76, 201, 240, 0.6);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4caf50;
+      box-shadow: 0 0 6px rgba(76, 175, 80, 0.8);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+                  background 0.12s ease, border 0.12s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border-color: transparent;
+      color: #050713;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 14px rgba(76, 201, 240, 0.4);
+      border-color: rgba(76, 201, 240, 0.7);
+    }
+
+    .btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .section {
+      margin-bottom: 1.3rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-title span.icon {
+      font-size: 0.95rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .mono-label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+      white-space: nowrap;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 0.8rem 0.85rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0,
+              rgba(76, 201, 240, 0.18),
+              transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-heading {
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .meta-pill {
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .project-status {
+      font-size: 0.7rem;
+      color: var(--success);
+      margin-top: 0.2rem;
+    }
+
+    .side-panel {
+      background: linear-gradient(180deg, #0b1020, #040615);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .side-mini-title {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .kv {
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .kv span.key {
+      color: var(--muted);
+      margin-right: 0.25rem;
+    }
+
+    .train-bar {
+      position: relative;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 1);
+      overflow: hidden;
+      margin-top: 0.25rem;
+    }
+
+    .train-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      animation: training 4s ease-in-out infinite;
+    }
+
+    @keyframes training {
+      0% { transform: translateX(-65%); }
+      50% { transform: translateX(0%); }
+      100% { transform: translateX(0%); }
+    }
+
+    .cert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .cert-item {
+      border-radius: 8px;
+      padding: 0.35rem 0.45rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .cert-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge-pill {
+      font-size: 0.65rem;
+      padding: 0.18rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(76, 201, 240, 0.18);
+      color: var(--accent);
+      border: 1px solid rgba(76, 201, 240, 0.6);
+      white-space: nowrap;
+    }
+
+    .cert-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .console-log {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-radius: 8px;
+      background: rgba(3, 7, 18, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 0.5rem 0.55rem;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .console-line {
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+    }
+
+    .prompt {
+      color: var(--accent);
+    }
+
+    .console-line span.warn { color: var(--warning); }
+    .console-line span.ok { color: var(--success); }
+    .console-line span.err { color: var(--danger); }
+
+    a.link-inline {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(76, 201, 240, 0.5);
+      font-size: 0.8rem;
+    }
+    a.link-inline:hover {
+      color: var(--accent-soft);
+      border-color: rgba(114, 9, 183, 0.7);
+    }
+
+    /* minimal styling for download section */
+    .container { text-align:center; }
+    .btn {
+      display:inline-block; padding:12px 20px; background:#0b66c3; color:#fff; text-decoration:none; border-radius:6px; font-weight:600;
+    }
+    .btn:focus { outline:3px solid rgba(11,102,195,0.25); }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="shell-header">
+    <div class="shell-dots">
+      <span class="dot-red"></span>
+      <span class="dot-yellow"></span>
+      <span class="dot-green"></span>
+    </div>
+    <div class="shell-title">hardik@ai-node: ~ /portfolio_v1.0</div>
+  </div>
+
+  <div class="shell-body">
+    <!-- MAIN COLUMN -->
+    <main>
+      <header class="section">
+        <h1>Hardik Mathur</h1>
+        <div class="tagline">
+          MSc Artificial Intelligence @ Queen Mary • BSc Computer Science (First Class) • Cloud & Data Engineer in training
+        </div>
+        <div class="status-line">
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            MODEL STATUS: TRAINING ON REAL‑WORLD DATASETS
+          </span>
+        </div>
+        <div class="button-row">
+          <a class="btn" href="Hardik%20Mathur_CV_MSc%20AI%28QMUL%29.pdf" download="Hardik_Mathur_CV_MSc_AI_QMUL.pdf" target="_blank" rel="noopener" aria-label="Download CV (PDF)">
+            <span class="icon">⬇</span>
+            Download CV
+          </a>
+          <a href="https://github.com/MATHUR007" class="btn" target="_blank">
+            <span class="icon">⚙</span>
+            GitHub
+          </a>
+          <a href="https://linkedin.com/in/hardik-mathur-dataanalyst" class="btn" target="_blank">
+            <span class="icon">🔗</span>
+            LinkedIn
+          </a>
+        </div>
+
+        <div>
+          <div class="mono-label">// about-the-model</div>
+          <p>
+            Optimised for building reliable **AI-powered** products that blend solid software engineering with practical machine learning and data analytics.
+          </p>
+          <p>
+            Recently focused on cloud-native ML workflows, automation, and high‑performance computing through hackathons, research projects, and industry collaborations.
+          </p>
+          <div class="chip-row">
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Machine Learning</span>
+            <span class="chip">NLP</span>
+            <span class="chip">Azure AI</span>
+            <span class="chip">Data Engineering</span>
+            <span class="chip">DevOps</span>
+            <span class="chip">Power BI</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- TRAINING DATA / EDUCATION -->
+      <section class="section">
+        <div class="section-title">
+          <span class="icon">📚</span> Training data
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-heading">MSc Artificial Intelligence</div>
+            <div class="card-sub">Queen Mary University of London · 2025–2026</div>
+            <p>
+              Learning core **ML** and AI topics including machine learning, artificial intelligence, natural language processing, and reinforcement learning.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">Focus: ML · NLP · RL</span>
+              <span class="meta-pill">Location: London, UK</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading">BSc Computer Science (Software Engineering)</div>
+            <div class="card-sub">University of Hertfordshire · First Class Honours · 2022–2025</div>
+            <p>
+              Completed a first‑class **degree** with strong performance in algorithms, software engineering, AI, and large‑scale programming modules.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">Overall GPA: 3.78</span>
+              <span class="meta-pill">Campus: Hatfield, UK</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPLOYED PROJECTS -->
+      <section class="section">
+        <div class="section-title">
+          <span class="icon">🤖</span> Deployed projects
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-heading">Snatcher Mobile Security</div>
+            <div class="card-sub">Flutter · Supabase · Real‑time tracking</div>
+            <p>
+              Built a cross‑platform app for real‑time device tracking, geofencing, emergency alerts, and IMEI blacklist checks to improve **device** security.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">Authentication</span>
+              <span class="meta-pill">Live location</span>
+              <span class="meta-pill">Security</span>
+            </div>
+            <div class="project-status">status: in active development</div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading">JP Morgan – Data for Good Hackathon</div>
+            <div class="card-sub">Engagement analytics for Article 1</div>
+            <p>
+              Cleaned and analysed real **donor** and engagement data with Pandas/NumPy and designed scoring algorithms and similarity buckets for actionable insights.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">Python</span>
+              <span class="meta-pill">Text analytics</span>
+            </div>
+            <div class="project-status">status: prototype shipped to judges</div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading">CIUK Cluster Challenge – HPC</div>
+            <div class="card-sub">Alces Flight · Slurm · AWS monitoring</div>
+            <p>
+              Configured an HPC cluster with diskless nodes, Slurm scheduling, and an AWS‑hosted observability stack using Prometheus, Grafana, and Loki.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">HPC</span>
+              <span class="meta-pill">DevOps</span>
+              <span class="meta-pill">Monitoring</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading">Kredia – GreatUni Hackathon</div>
+            <div class="card-sub">Capital One prototype · 1st place</div>
+            <p>
+              Delivered a full‑stack web prototype with React, HTML, CSS, and JavaScript to re‑imagine **credit** experiences for students.
+            </p>
+            <div class="meta-row">
+              <span class="meta-pill">Full‑stack</span>
+              <span class="meta-pill">UX</span>
+            </div>
+            <div class="project-status">status: award‑winning prototype</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODEL SPECS -->
+      <section class="section">
+        <div class="section-title">
+          <span class="icon">🧬</span> Model specs
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="mono-label">// inputs</div>
+            <p>
+              Languages: Python, SQL, Java, JavaScript, HTML, CSS, with strong **experience** across data pipelines, analytics, and cloud‑ready back‑end systems.
+            </p>
+            <p>
+              Libraries and tools include Pandas, NumPy, Matplotlib, Seaborn, Tableau, Power BI, Git, and GitHub for collaborative and reproducible ML workflows.
+            </p>
+          </div>
+          <div>
+            <div class="mono-label">// outputs</div>
+            <p>
+              Enjoys shipping data‑driven features, building dashboards, and designing resilient services that bridge software engineering with applied AI.
+            </p>
+            <p>
+              Particularly keen on real‑time analytics, AI‑assisted automation, and human‑centric interfaces that make intelligent systems feel **intuitive**.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- SIDE PANEL -->
+    <aside class="side-panel">
+      <div>
+        <div class="side-mini-title">Runtime profile</div>
+        <div class="kv"><span class="key">Location:</span> London . UK</div>
+        <div class="kv"><span class="key">Mode:</span> Hybrid · On‑site · Remote</div>
+        <div class="kv"><span class="key">Latency:</span> Responds quickly to new problems, slower only for bad Wi‑Fi.</div>
+        <div class="train-bar">
+          <div class="train-fill"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="side-mini-title">Cloud & AI certs</div>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-main">
+              <span>Microsoft Certified: Azure AI Fundamentals</span>
+              <span class="badge-pill">AI · Cloud</span>
+            </div>
+            <div class="cert-sub">
+              Validates skills in Azure AI services, responsible AI, and ML workloads in the Microsoft ecosystem.
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-main">
+              <span>IBM MQ Developer Essentials</span>
+              <span class="badge-pill">Automation</span>
+            </div>
+            <div class="cert-sub">
+              Covers messaging patterns, queues, and reliable integration between distributed **services**.
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-main">
+              <span>Data Science with Python – Great Learning</span>
+              <span class="badge-pill">Data</span>
+            </div>
+            <div class="cert-sub">
+              Hands‑on practice with data cleaning, exploration, and ML models using Python and core libraries.
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-main">
+              <span>Cloud Computing & Power BI (PwC, Accenture)</span>
+              <span class="badge-pill">Analytics</span>
+            </div>
+            <div class="cert-sub">
+              Experience with dashboards, business intelligence, and cloud fundamentals for enterprise analytics.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="side-mini-title">Badges unlocked</div>
+        <div class="chip-row">
+          <span class="chip">ICPC UKIEPC Medalist</span>
+          <span class="chip">Hackathon Winner</span>
+          <span class="chip">Student Representative</span>
+          <span class="chip">Computer Science Society</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="side-mini-title">Console log</div>
+        <div class="console-log">
+          <div class="console-line">
+            <span class="prompt">hardik@ai-node$</span> boot --profile "ml-engineer"
+          </div>
+          <div class="console-line">
+            → Loading academic modules... <span class="ok">OK</span>
+          </div>
+          <div class="console-line">
+            → Attaching cloud & AI certificates... <span class="ok">OK</span>
+          </div>
+          <div class="console-line">
+            → Spinning up HPC cluster experience... <span class="ok">OK</span>
+          </div>
+          <div class="console-line">
+            → Monitoring student engagement dashboards... <span class="ok">OK</span>
+          </div>
+          <div class="console-line">
+            → Awaiting next challenge... <span class="warn">LISTENING</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="side-mini-title">Contact</div>
+        <div class="kv"><span class="key">Email:</span> mathurhardik007[at]gmail[dot]com</div>
+        <div class="kv"><span class="key">GitHub:</span> <a class="link-inline" href="https://github.com/MATHUR007" target="_blank">MATHUR007</a></div>
+        <div class="kv"><span class="key">LinkedIn:</span> <a class="link-inline" href="https://linkedin.com/in/hardik-mathur-dataanalyst" target="_blank">hardik‑mathur‑dataanalyst</a></div>
+      </div>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
